@@ -1,0 +1,43 @@
+$baseFontFamily: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;      
+$baseFontColor: #d5d5d5;
+
+$bodyBackground: #222222;
+$altColor: #DD1F26;//red
+$linkColor: #585858;
+$linkColorActive: $altColor;
+$linkColorHover: $altColor;
+
+@import "gko/gko_public"; 
+@import "gko/elastislide"; 
+
+/*-----------------------------------------
+   Structure
+----------------------------------------- */
+body {
+
+}	
+.wrapper-wide {
+ @include container;
+}
+.wrapper-content {
+ @include row;
+}
+#main-content{
+ @include column(12);
+	margin-top:34px;
+}
+#main-content.sidebar {
+ @include column(8);
+}
+#sidebar{ 
+ @include column(4);
+ margin-top: 34px; 
+}
+#wrapper-wide-main {
+ 
+}
+#wrapper-wide-footer {
+	text-align: center;
+	font-size: 12px;
+}
+

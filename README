@@ -2,9 +2,6 @@ cd ~/developer/workspace/gko_manoir_lurin_com
 bundle install
 rails s
 bundle exec rake assets:precompile
-
-
-
 bundle exec rake railties:install:migrations
 bundle exec rake db:bootstrap
 (bundle exec rake gko:install

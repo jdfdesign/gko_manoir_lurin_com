@@ -11,10 +11,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 group :production do
-  gem 'gko_core', '= 0.0.90', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
-  gem 'gko_auth', '= 0.0.35', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
-  gem 'gko_images', '= 0.0.49', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
-  gem 'gko_inquiries', '= 0.0.35', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
+  gem 'gko_core', '= 0.1.01', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
+  gem 'gko_auth', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
+  gem 'gko_images', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
+  gem 'gko_inquiries', :git => 'git@github.com:jdfdesign/gko-cms-31.git'
 end
 #group :development do
 #  gem "gko_core", :path => File.expand_path('../../gko_cms_html/gko_core', __FILE__)

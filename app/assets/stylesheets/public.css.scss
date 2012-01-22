@@ -1,43 +1,382 @@
-$baseFontFamily: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;      
+$baseFontFamily: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
 $baseFontColor: #d5d5d5;
 
 $bodyBackground: #222222;
-$altColor: #DD1F26;//red
-$linkColor: #585858;
+$altColor: #fff;//white
+$linkColor: #a5a5a5;
 $linkColorActive: $altColor;
-$linkColorHover: $altColor;
+$linkColorHover: $altColor; 
 
-@import "gko/gko_public_all"; 
-@import "gko/elastislide"; 
-
+$navBarHeight: 36px;
 /*-----------------------------------------
-   Structure
+IMPORT
 ----------------------------------------- */
-body {
+@import "gko/gko_public_all";
+@import "gko/elastislide";
+/*-----------------------------------------
+OVERWRITTE
+----------------------------------------- */
+.nav-bar {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	.flyout { 
+		border-color: #000;
+		background: #000;
+		background: rgba(0,0,0,.9);
+		width: 160px;
+	}
+	a { 
+		font-weight: normal; 
+		color: #fff;
+		@include link-colors($linkColor, $linkColorHover, $linkColorActive);
+ } 
+	> li { 
+		> a {
+			padding: 0 8px; 
+			font-size: $baseFontSize;
+		}
+		&:last-child {
+			.flyout {
+				left: auto;
+				right: 0;
+				width: 80px;
+			}
+		}
+		&:hover > a {
+			color: $linkColorHover;
+		}
+		&.has-flyout > a {
+			//padding-right: 24px;
+		}
+	}
+}
+.image-large-wrapper {
+	padding: 0px;
+}
+.images-thumbnails-container {
+	padding: 10px 37px;
+	position: relative;
+	left: 0px;
+	bottom: 0px;
+}
+/*-----------------------------------------
+  GALLERY
+----------------------------------------- */
+.image-large-wrapper a.image-large-nav.image-large-nav-prev,
+.image-large-wrapper a.image-large-nav.image-large-nav-next {
+	@include corner-none;
+}
+/*-----------------------------------------
+STRUCTURE
+----------------------------------------- */
+$masterheadHeight: 20px;
+$headerHeight: 126px;
+$scrollPaneHeight: 420px;
+$thumbsHeight: 80px;
+$mainHeight: $scrollPaneHeight + $thumbsHeight; 
+$footerHeight: 101px; 
+$totalHeight: $headerHeight + $mainHeight + $footerHeight; 
 
-}	
+body, html {
+	margin:0; padding:0;
+	height:100%; 
+}
+.body-floater {
+	height:50%;
+	margin-bottom: -$totalHeight / 2;
+	@media only screen and (max-width: 767px) {
+		height:auto;
+		margin: 0; 
+	}
+} 
+.body-container {
+ clear:both; 
+ height: $totalHeight; 
+ position:relative;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	} 
+}
 .wrapper-wide {
- @include container;
+	@include container;
+	
 }
 .wrapper-content {
- @include row;
+	@include row;
+	background: #000;
+	max-width: 860px;
 }
-#main-content{
- @include column(12);
-	margin-top:34px;
-}
+
 #main-content.sidebar {
- @include column(8);
+	@include column(8);
 }
-#sidebar{ 
- @include column(4);
- margin-top: 34px; 
+#sidebar {
+	@include column(4);
+	margin-top: 34px;
+}
+#wrapper-wide-masterhead {
+	position: relative;
+	height: $masterheadHeight;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	} 
+}
+#masterhead { 
+	background: transparent;
+	ul#locales {
+		float:right;
+	}
 }
 #wrapper-wide-main {
- 
+	height: $mainHeight;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	}
+}
+#wrapper-wide-header {
+	position: relative;
+	z-index: 4;
+	height: $headerHeight + 10;
+	
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	}
+}
+#header { 
+	margin-bottom: 10px; 
+	position: relative;
+	height: $headerHeight;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	}
 }
 #wrapper-wide-footer {
 	text-align: center;
 	font-size: 12px;
+	height: $footerHeight;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+	}
+} 
+/*-----------------------------------------
+  HEADER
+----------------------------------------- */ 
+
+ul#locales {
+	background: #000;
+	padding: 4px;
+	@include corner-top(4px);
+}
+#site-title-container {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	@media only screen and (max-width: 767px) {
+		@include clearfix;
+		position: static;
+		top: 0px;
+		left: 0px;
+	}
+}
+h2#site-title {
+	line-height: $navBarHeight;
+	margin-top: 20px;
+	margin-bottom: 0px; 
+	@include logo(212px, 106px);
+	@media only screen and (max-width: 767px) {
+		text-align:center; 
+	}
+}
+#primary-menu { 
+	position: absolute;
+	bottom: 0px;
+	right: 0px;
+	@media only screen and (max-width: 767px) {
+		@include clearfix;
+		position: static;
+		bottom: 0px;
+		right: 0px;
+	}
+}
+ 
+/*-----------------------------------------
+   SITE INFOS 
+----------------------------------------- */ 
+#site-infos {
+	margin-left: -20px;
+	margin-right: -20px;
+	background: $bodyBackground;
+	padding-top: 12px;
+	overflow:hidden;
+	a { 
+		float:right;
+		@include link-colors(#555555,#fff,#fff);
+		background: $bodyBackground;
+		margin-right: 20px; 
+	}
+}
+/*-----------------------------------------
+ SCROLLPANE
+----------------------------------------- */
+#main-content {
+	@include column(12);
+	position: relative;
+	overflow: hidden;
+}
+a#scrollpane-tab {
+	width: 28px;
+	height: 28px;
+	position: absolute;
+	z-index: 2;
+	cursor:pointer; 
+	text-indent: -20000px;
+	background: #000;
+	span { 
+		position:absolute;
+		top:50%;
+		left:12px;
+		background-image: asset_url("gko/nav_thumbnail.png", image);
+		background-repeat: no-repeat;
+		background-position: top left;
+		width:14px;
+		height:28px;
+		margin-top:-13px;
+	}
+	&.open {
+		span {
+			right:12px;
+			left:auto;
+			background-position: top right;
+		}
+	} 
+}
+#scrollpane-wrapper {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width: 348px;
+}
+.page_content {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	z-index: 1;
+	max-width: 320px;
+	height: $scrollPaneHeight; /* must have an height for scrollpane(in px if parent height is not set) */
+	display:block;
+	background: #000;
+	background: rgba(0,0,0,.7);
+	color: #b7b7b7;
+	@media only screen and (max-width: 767px) {
+		height:auto; 
+		position: relative;
+		max-width:767px;
+		overflow:visible; 
+		top: 0px;
+	}
+}
+h1.page-title,
+.description-container {
+	padding-left: 24px;
+	padding-right: 24px;
+	@media only screen and (max-width: 767px) {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+h1.page-title {
+	font-size: 26px;
+	font-size: 2.6rem;
+} 
+
+
+/*-----------------------------------------
+  SCROLLPANE
+----------------------------------------- */
+$scrollSize: 12px;
+
+.jspContainer {
+	overflow: hidden;
+	position: relative;
+
+}
+.jspPane {
+	position: absolute;
+}
+.jspVerticalBar,
+.jspHorizontalBar {
+	position: absolute; 
+	background: #000;
+	.jspCap {
+		display: none;
+	}
+	
+	.jspTrack {
+		background: #000;
+		position: relative;
+	}
+	.jspDrag {
+		background: #ccc;
+		position: relative;
+		top: 0;
+		left: 0;
+		cursor: pointer;
+		@include corner-all(6px);
+	}
+	.jspArrow {
+		background: #000;
+		text-indent: -20000px;
+		display: block;
+		cursor: pointer;
+	}
+	.jspArrow.jspDisabled {
+		cursor: default;
+		background: #000;
+	}
+	.jspCorner {
+		background: #000;
+		float: left;
+		height: 100%;
+	}
+} 
+.jspVerticalBar *,
+.jspHorizontalBar * {
+	margin: 0;
+	padding: 0;
+}
+.jspVerticalBar {
+	top: 0;
+	right: 10px;
+	width: $scrollSize;
+	height: 100%;
+	.jspArrow {
+		height:  $scrollSize;
+		&:focus {
+			outline: none;
+		}
+	}
+}
+.jspHorizontalBar {
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: $scrollSize;
+	.jspCap {
+		float: left;
+	}
+	.jspTrack,
+	.jspDrag {
+		float: left;
+		height: 100%;
+	}
+	.jspArrow {
+		width: $scrollSize;
+		float: left;
+		height: 100%;
+	}
 }
 
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner {
+	margin: 0 -3px 0 0;
+}

@@ -1,163 +1,141 @@
-$baseFontFamily: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
-$baseFontColor: #d5d5d5;
+$altColor: #fff;//white 
 
-$bodyBackground: #222222;
-$altColor: #fff;//white
+$navBarHeight: 36px;
+$masterheadHeight: 20px;
+$headerHeight: 126px;
+$scrollPaneHeight: 400px;
+$thumbsHeight: 90px;
+$mainHeight: $scrollPaneHeight + $thumbsHeight; 
+$footerHeight: 101px; 
+$totalHeight: $headerHeight + $mainHeight + $footerHeight;
+
+
+$global-radii-blocks: 4px;
+
+// Layout 
+$containerMaxWidth: 0; 
+$rowMaxWidth: 860px;
+
+$bodyBackgroundColor: #222222;
+$contentContainerBackgroundColor: #000;
+$contentBackgroundColor: transparent;
+$footerContainerBackgroundColor: $contentContainerBackgroundColor;
+$footerBackgroundColor: transparent;
+$copyrightContainerBackgroundColor: transparent;
+$copyrightBackgroundColor: transparent; 
+$mainBackgroundColor: transparent;
+$sidebarBackgroundColor: transparent;
+
+// Typography
+$baseFontFamily: "proxima-nova-1", "proxima-nova-2", "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+$baseFontSize: 12px;
+$baseLineHeight: 20px;
+$textColor: #d5d5d5;
+$headingFontFamily: $baseFontFamily;
+$headingTextColor: $textColor;
+$headingBaseFontSize: 26px;
+
+// Links  
 $linkColor: #a5a5a5;
 $linkColorActive: $altColor;
 $linkColorHover: $altColor; 
 
-$navBarHeight: 36px;
+// Nav base 
+$navLinkColor: $linkColor;
+$navLinkColorHover: $linkColorHover;
+$navLinkColorActive: $navLinkColorHover;
+$navBackgroundColor: transparent;
+$navBackgroundColorHover: $navBackgroundColor;
+$navBackgroundColorActive: $navBackgroundColor;
+
+// Navbar
+$navbarBackgroundHighlight: $contentContainerBackgroundColor;
+$navbarBackground: $contentContainerBackgroundColor;
+$navbarText: $textColor;
+$navbarLinkColor: $linkColor;
+$navbarLinkColorHover: $linkColorHover;
+$navbarLinkColorActive: $linkColorHover;
+$navbarLinkSpace: 0;
+$navbarLinkBackgroundColor: none;
+$navbarLinkBackgroundColorHover: $navbarLinkBackgroundColor;
+$navbarLinkBackgroundColorActive: $navbarLinkBackgroundColor; 
+$navbarLinkCorner: none;  
+$navbarButtonBackgroundHighlight: $navbarBackgroundHighlight; 
+$navbarButtonBackground: $navbarBackground; 
+$navbarButtonIconBarColor: white;
+$navbarResponsiveLinkBorder: lighter($navbarLinkColor, 15%);
+$navbarDropdownBackground: $navbarBackground;
+$navbarDropdownLinkColor: $navbarLinkColor;
+$navbarDropdownLinkColorHover: $navbarLinkColorHover;
+$navbarDropdownLinkColorActive: $navbarLinkColorActive; 
+
+// Footer links
+$footerLinkColor: $linkColor;
+$footerLinkColorHover: $linkColorHover;
+$footerLinkColorActive: $linkColorActive;
+$footerResponsiveLinkBorder: lighter($footerLinkColor, 15%);
+
+// Header links
+$headerLinkColor: $linkColor;
+$headerLinkColorHover: $linkColorHover;
+$headerLinkColorActive: $linkColorActive;
+
+// Copyright links
+$copyrightLinkColor: #555555;
+$copyrightLinkColorHover: #fff;
+$copyrightLinkColorActive: #fff;
+$copyrightLogoColor: white;
+
+
+// Form
+$inputTextColor: $textColor;
+$inputBackgroundColor: $bodyBackgroundColor;
+$inputBorderColor: $textColor;
+$inputFocusBorderColor: rgba(82, 168, 236, 0.8); 
+$inputBorderRadius: 3px; 
+
+// Grid
+$blockGridImageBorder: none;
+$blockGridImageBackgroundColor: transparent; 
+$blockGridBackgroundColor: transparent; 
+$blockGridImageCorner: none;
+$blockGridImageShadow: none;
+
+
 /*-----------------------------------------
 IMPORT
 ----------------------------------------- */
-@import "gko/gko_public_all";
+@import "gko_public_all"; 
 @import "gko/elastislide";
 /*-----------------------------------------
 OVERWRITTE
 ----------------------------------------- */
-.nav-bar {
-	margin-top: 0px;
-	margin-bottom: 0px;
-	.flyout { 
-		border-color: #000;
-		background: #000;
-		background: rgba(0,0,0,.9);
-		width: 160px;
-	}
-	a { 
-		font-weight: normal; 
-		color: #fff;
-		@include link-colors($linkColor, $linkColorHover, $linkColorActive);
- } 
-	> li { 
-		> a {
-			padding: 0 8px; 
-			font-size: $baseFontSize;
-		}
-		&:last-child {
-			.flyout {
-				left: auto;
-				right: 0;
-				width: 80px;
-			}
-		}
-		&:hover > a {
-			color: $linkColorHover;
-		}
-		&.has-flyout > a {
-			//padding-right: 24px;
-		}
-	}
-}
-.image-large-wrapper {
-	padding: 0px;
-}
-.images-thumbnails-container {
-	padding: 10px 37px;
-	position: relative;
-	left: 0px;
-	bottom: 0px;
+.dropdown-menu {
+	border-color: white;
+	border-color: rgba(255, 255, 255, 0.2);
 }
 /*-----------------------------------------
   GALLERY
 ----------------------------------------- */
-.image-large-wrapper a.image-large-nav.image-large-nav-prev,
-.image-large-wrapper a.image-large-nav.image-large-nav-next {
-	@include corner-none;
+.image-large-wrapper {
+	position: relative;
+	height: $mainHeight;
+	background: black; 
+}
+.images-thumbnails-container {
+	position: absolute;
+	height: $thumbsHeight;
+	top: $scrollPaneHeight;
+	left: 0;
+	right: 0;
 }
 /*-----------------------------------------
 STRUCTURE
 ----------------------------------------- */
-$masterheadHeight: 20px;
-$headerHeight: 126px;
-$scrollPaneHeight: 420px;
-$thumbsHeight: 80px;
-$mainHeight: $scrollPaneHeight + $thumbsHeight; 
-$footerHeight: 101px; 
-$totalHeight: $headerHeight + $mainHeight + $footerHeight; 
-
-body, html {
-	margin:0; padding:0;
-	height:100%; 
+#wrapper-wide-body {
+	max-width:$rowMaxWidth;
+	@include center-block;
 }
-.body-floater {
-	height:50%;
-	margin-bottom: -$totalHeight / 2;
-	@media only screen and (max-width: 767px) {
-		height:auto;
-		margin: 0; 
-	}
-} 
-.body-container {
- clear:both; 
- height: $totalHeight; 
- position:relative;
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	} 
-}
-.wrapper-wide {
-	@include container;
-	
-}
-.wrapper-content {
-	@include row;
-	background: #000;
-	max-width: 860px;
-}
-
-#main-content.sidebar {
-	@include column(8);
-}
-#sidebar {
-	@include column(4);
-	margin-top: 34px;
-}
-#wrapper-wide-masterhead {
-	position: relative;
-	height: $masterheadHeight;
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	} 
-}
-#masterhead { 
-	background: transparent;
-	ul#locales {
-		float:right;
-	}
-}
-#wrapper-wide-main {
-	height: $mainHeight;
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	}
-}
-#wrapper-wide-header {
-	position: relative;
-	z-index: 4;
-	height: $headerHeight + 10;
-	
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	}
-}
-#header { 
-	margin-bottom: 10px; 
-	position: relative;
-	height: $headerHeight;
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	}
-}
-#wrapper-wide-footer {
-	text-align: center;
-	font-size: 12px;
-	height: $footerHeight;
-	@media only screen and (max-width: 767px) {
-		height:auto; 
-	}
-} 
 /*-----------------------------------------
   HEADER
 ----------------------------------------- */ 
@@ -167,62 +145,28 @@ ul#locales {
 	padding: 4px;
 	@include corner-top(4px);
 }
-#site-title-container {
-	position: absolute;
-	top: 10px;
-	left: 10px;
-	@media only screen and (max-width: 767px) {
-		@include clearfix;
-		position: static;
-		top: 0px;
-		left: 0px;
-	}
+.navbar {
+ margin-bottom: 0;
+ height: $headerHeight;
 }
-h2#site-title {
-	line-height: $navBarHeight;
-	margin-top: 20px;
-	margin-bottom: 0px; 
+.navbar .header-nav {
+	position: relative;
+	height: $headerHeight;
+}
+.navbar .brand {
 	@include logo(212px, 106px);
-	@media only screen and (max-width: 767px) {
-		text-align:center; 
-	}
+	float:left;
+	margin-top:10px;
 }
-#primary-menu { 
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	@media only screen and (max-width: 767px) {
-		@include clearfix;
-		position: static;
-		bottom: 0px;
-		right: 0px;
-	}
+.nav-collapse {
+	position: absolute; 
+	right: 0;
+	bottom: 4px;
 }
- 
-/*-----------------------------------------
-   SITE INFOS 
------------------------------------------ */ 
-#site-infos {
-	margin-left: -20px;
-	margin-right: -20px;
-	background: $bodyBackground;
-	padding-top: 12px;
-	overflow:hidden;
-	a { 
-		float:right;
-		@include link-colors(#555555,#fff,#fff);
-		background: $bodyBackground;
-		margin-right: 20px; 
-	}
-}
+
 /*-----------------------------------------
  SCROLLPANE
 ----------------------------------------- */
-#main-content {
-	@include column(12);
-	position: relative;
-	overflow: hidden;
-}
 a#scrollpane-tab {
 	width: 28px;
 	height: 28px;
@@ -256,6 +200,17 @@ a#scrollpane-tab {
 	top: 0px;
 	width: 348px;
 }
+#main-column {
+	position: relative;
+	overflow: hidden;
+	height: $mainHeight;
+	 @include box-shadow(rgba(0,0,0,0.3) 0px 1px 4px);  
+	@media only screen and (max-width: 767px) {
+		height:auto;
+		overflow: visible; 
+	}
+ 
+}
 .page_content {
 	position: absolute;
 	right: 0px;
@@ -267,6 +222,7 @@ a#scrollpane-tab {
 	background: #000;
 	background: rgba(0,0,0,.7);
 	color: #b7b7b7;
+	
 	@media only screen and (max-width: 767px) {
 		height:auto; 
 		position: relative;
@@ -380,3 +336,7 @@ $scrollSize: 12px;
 * html .jspCorner {
 	margin: 0 -3px 0 0;
 }
+/*-----------------------------------------
+ RESPONSIVE
+----------------------------------------- */
+@import "gko/responsive";

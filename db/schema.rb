@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119180329) do
+ActiveRecord::Schema.define(:version => 20120316121232) do
 
   create_table "accounts", :force => true do |t|
     t.string   "reference",  :limit => 40
@@ -85,6 +85,79 @@ ActiveRecord::Schema.define(:version => 20120119180329) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "document_assignments", :force => true do |t|
+    t.integer  "position",                      :default => 1, :null => false
+    t.integer  "document_id",                                  :null => false
+    t.integer  "attachable_id",                                :null => false
+    t.string   "attachable_type", :limit => 40,                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "document_assignments", ["attachable_id", "attachable_type"], :name => "index_document_assignments_on_attachable_id_and_attachable_type"
+  add_index "document_assignments", ["document_id"], :name => "index_document_assignments_on_document_id"
+
+  create_table "document_items", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.date     "published_at"
+    t.integer  "site_id"
+    t.integer  "section_id"
+    t.string   "document_mime_type"
+    t.string   "document_name"
+    t.integer  "document_size"
+    t.string   "document_uid"
+    t.string   "document_ext"
+    t.string   "image_mime_type"
+    t.string   "image_name"
+    t.integer  "image_size"
+    t.integer  "image_width"
+    t.integer  "image_height"
+    t.string   "image_uid"
+    t.string   "image_ext"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "country_id"
+  end
+
+  add_index "document_items", ["country_id"], :name => "index_press_articles_on_country_id"
+  add_index "document_items", ["section_id"], :name => "index_press_articles_on_section_id"
+  add_index "document_items", ["site_id"], :name => "index_press_articles_on_site_id"
+
+  create_table "document_translations", :force => true do |t|
+    t.integer  "document_id"
+    t.string   "locale"
+    t.string   "title"
+    t.string   "alt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "document_translations", ["document_id"], :name => "index_document_translations_on_document_id"
+  add_index "document_translations", ["locale"], :name => "index_document_translations_on_locale"
+
+  create_table "documents", :force => true do |t|
+    t.string   "title",                      :limit => 100
+    t.string   "lang",                       :limit => 4
+    t.string   "alt"
+    t.integer  "account_id"
+    t.integer  "site_id"
+    t.integer  "document_assignments_count",                :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "document_mime_type"
+    t.string   "document_name"
+    t.integer  "document_size"
+    t.string   "document_uid"
+    t.string   "document_ext"
+    t.integer  "globalized",                                :default => 0
+    t.integer  "author_id"
+  end
+
+  add_index "documents", ["account_id"], :name => "index_documents_on_account_id"
+  add_index "documents", ["author_id"], :name => "index_documents_on_author_id"
+  add_index "documents", ["site_id"], :name => "index_documents_on_site_id"
 
   create_table "image_assignments", :force => true do |t|
     t.integer  "position",                      :default => 1, :null => false
@@ -191,23 +264,46 @@ ActiveRecord::Schema.define(:version => 20120119180329) do
   create_table "mail_methods", :force => true do |t|
     t.integer  "site_id"
     t.string   "environment"
-    t.boolean  "active",                 :default => true
-    t.boolean  "enable_mail_delivery",   :default => true
-    t.string   "mail_host"
-    t.string   "mail_domain"
-    t.integer  "mail_port",              :default => 25
-    t.string   "mail_auth_type"
-    t.string   "smtp_username"
-    t.string   "smtp_password"
-    t.string   "secure_connection_type"
-    t.string   "mails_from"
-    t.string   "mail_bcc"
-    t.string   "intercept_email"
+    t.boolean  "active",      :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "mail_methods", ["site_id"], :name => "index_mail_methods_on_site_id"
+
+  create_table "partner_translations", :force => true do |t|
+    t.integer  "partner_id"
+    t.string   "locale"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "partner_translations", ["locale"], :name => "index_partner_translations_on_locale"
+  add_index "partner_translations", ["partner_id"], :name => "index_partner_translations_on_partner_id"
+
+  create_table "partners", :force => true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "url"
+    t.integer  "site_id"
+    t.integer  "section_id"
+    t.string   "image_mime_type"
+    t.string   "image_name"
+    t.integer  "image_size"
+    t.integer  "image_width"
+    t.integer  "image_height"
+    t.string   "image_uid"
+    t.string   "image_ext"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "globalized",      :default => 0
+    t.integer  "position",        :default => 1
+  end
+
+  add_index "partners", ["position", "section_id"], :name => "index_partners_on_position_and_section_id"
+  add_index "partners", ["section_id"], :name => "index_partners_on_section_id"
+  add_index "partners", ["site_id"], :name => "index_partners_on_site_id"
 
   create_table "preferences", :force => true do |t|
     t.string   "key",                      :null => false
@@ -272,12 +368,13 @@ ActiveRecord::Schema.define(:version => 20120119180329) do
     t.string   "redirect_url"
     t.string   "title_addon"
     t.datetime "published_at"
-    t.boolean  "hidden",           :default => false
+    t.boolean  "hidden",            :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "menu_title"
-    t.integer  "globalized",       :default => 0
+    t.integer  "globalized",        :default => 0
     t.integer  "level"
+    t.boolean  "shallow_permalink", :default => true
   end
 
   add_index "sections", ["link_id", "link_type"], :name => "index_sections_on_link_id_and_link_type"
@@ -374,9 +471,8 @@ ActiveRecord::Schema.define(:version => 20120119180329) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "reset_password_token"
-    t.string   "remember_token"
     t.string   "remember_created_at"
-    t.integer  "sign_in_count"
+    t.integer  "sign_in_count",                           :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -398,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20120119180329) do
     t.string   "authentication_token"
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.datetime "reset_password_sent_at"
   end
 
   add_index "users", ["account_id"], :name => "index_users_on_account_id"

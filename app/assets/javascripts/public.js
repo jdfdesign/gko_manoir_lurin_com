@@ -1,4 +1,4 @@
-//= require gko/externals/jquery.elastidegallery
+//= require gko/jquery.elastidegallery 
 //= require jquery.mousewheel.js
 //= require jquery.jscrollpane.min.js
 

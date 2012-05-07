@@ -49,11 +49,11 @@ $(document).ready(function() {
 	console.log(screen.width)
 	
 	if(screen.width > 820 ) {
-		if(viewport_wh().w > 819 ) {
+		if(f_viewport_wh().w > 819 ) {
 			init_scrollpane();
 		}
 		$(window).on("throttledresize", function() {
-			if(viewport_wh().w > 820 && !scrollpaneActive ) {
+			if(f_viewport_wh().w > 820 && !scrollpaneActive ) {
 				init_scrollpane();
 			} else if(scrollpaneActive) {
 				remove_scrollpane();
@@ -61,14 +61,14 @@ $(document).ready(function() {
 		});
 	}
 	
-	if($('body').hasClass('mobile')) {
+//	if($('body').hasClass('mobile')) {
 	
-	}
-	else {
+//	}
+//	else {
 		if($('.images:first').length > 0) {
 			Gallery.init($('.images:first'));
 		}
-	}
+//	}
 
 	
 });
